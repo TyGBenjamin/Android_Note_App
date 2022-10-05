@@ -16,11 +16,11 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
         viewModelScope.launch {
             repository.insertNote(Note(id =3, title = "NEWNOTE", body = "This is an example note number 2"))
         }
-
-
     }
 
-
+    fun deleteNote(note: Note) = viewModelScope.launch {
+        repository.deleteNote(note)
+    }
 
 
     companion object {

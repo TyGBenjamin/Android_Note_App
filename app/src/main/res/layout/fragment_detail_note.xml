@@ -28,7 +28,7 @@
 
 
     <TextView
-        android:id="@+id/description"
+        android:id="@+id/tv_body"
         android:fontFamily="serif"
         android:layout_width="417dp"
         android:layout_height="133dp"

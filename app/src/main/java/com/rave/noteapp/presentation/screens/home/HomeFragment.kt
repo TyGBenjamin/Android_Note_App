@@ -72,7 +72,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun deleteNote(note: Note) {
-        // viewmodel.deleteNote(id)
+        viewModel.deleteNote(note)
     }
 }
 
