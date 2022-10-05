@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.rave.noteapp.data.local.NoteDao
 import com.rave.noteapp.databinding.ItemListBinding
 import com.rave.noteapp.domain.models.Note
 
@@ -21,13 +22,14 @@ class NoteAdapter (
             tvBody.text = note.body
 
             root.setOnClickListener{
-                Log.d("CLICK", "applyAnime: ${note.id}")
+                Log.d("CLICK", "applyNote: ${note.id}")
                 navigate(note.id)
             }
             btnDelete.setOnClickListener {
                 println("Delete btn clicked")
                 deleteNote(note)
             }
+
         }
     }
 

@@ -48,6 +48,8 @@
             app:destination="@id/homeFragment" />
         <argument
             android:name="id"
-            app:argType="integer" />
+            app:argType="integer"
+            app:nullable="false"
+            />
     </fragment>
 </navigation>

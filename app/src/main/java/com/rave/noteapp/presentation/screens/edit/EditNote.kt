@@ -12,9 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class EditNote : Fragment() {
 
-    companion object {
-        fun newInstance() = EditNote()
-    }
+
 
     private lateinit var viewModel: EditNoteViewModel
 

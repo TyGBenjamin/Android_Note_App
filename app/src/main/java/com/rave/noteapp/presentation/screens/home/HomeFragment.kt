@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         initListeners()
-        viewModel.insertNote()
+//        viewModel.insertNote()
     }
 
     private fun initListeners() = with(binding) {
@@ -72,7 +72,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun deleteNote(note: Note) {
-        // viewmodel.deleteNote(id)
+        viewModel.deleteNote(note)
     }
 }
 
