@@ -14,15 +14,11 @@ import javax.inject.Inject
 class MainActivityViewModel @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
-    fun getNotes() {
-        viewModelScope.launch {
-            val list = repository.getNotes()
-            Log.d(TAG, "getNotes: ${list.first()}")
-        }
-    }
+    val noteList = repository.getNotes()
 
     fun insertNote() {
         viewModelScope.launch {
+            Log.d(TAG, "insertNote: fired")
             repository.insertNote(
                 Note(
                     title = "Knew Nothing!",
