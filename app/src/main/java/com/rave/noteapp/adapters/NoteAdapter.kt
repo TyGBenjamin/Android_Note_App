@@ -29,6 +29,7 @@ class NoteAdapter (
                 println("Delete btn clicked")
                 deleteNote(note)
             }
+
         }
     }
 

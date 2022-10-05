@@ -14,7 +14,7 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
 
     fun insertNote() {
         viewModelScope.launch {
-            repository.insertNote(Note(id =3, title = "NEWNOTE", body = "This is an example note number 2"))
+            repository.insertNote(Note(id =4, title = "NEWNOTE", body = "This is an example of a different note my guy"))
         }
     }
 
