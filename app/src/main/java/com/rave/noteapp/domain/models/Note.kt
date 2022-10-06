@@ -11,7 +11,7 @@ data class Note(
     @PrimaryKey(autoGenerate = true) // AUTO GENERATES KEY YOU NEED TO MAKE ID = 0
     val id: Int = 0,
     @ColumnInfo
-    val title: String,
+    var title: String,
     @ColumnInfo
     val body: String,
 )

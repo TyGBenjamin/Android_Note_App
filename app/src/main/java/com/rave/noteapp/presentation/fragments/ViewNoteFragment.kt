@@ -2,6 +2,7 @@ package com.rave.noteapp.presentation.fragments
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavArgs
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.rave.noteapp.databinding.FragmentViewNoteBinding
 import com.rave.noteapp.databinding.NotesBinding
@@ -19,7 +21,8 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ViewNoteFragment : Fragment() {
+class ViewNoteFragment (
+): Fragment() {
     private  var _binding : FragmentViewNoteBinding? = null
     private val binding: FragmentViewNoteBinding get () = _binding!!
     private val viewModel by viewModels<ViewNoteViewModel>()
@@ -43,13 +46,33 @@ class ViewNoteFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.note.collectLatest { note ->
                 note?.let {
-                    tvDetailTitle.text = note.title
+                     tvDetailTitle.setText(note.title)
+                    tvBody.setText(note.body)
+                }
+                btnSave.setOnClickListener{
+                    Log.d("CLICKADD", "${tvBody.text} ${tvDetailTitle.text} ")
+                    if (note != null) {
+                        viewModel.update(note = Note(id =note.id,title = tvDetailTitle.text.toString(), body = tvBody.text.toString()))
+                    }
+                    navigateToHome()
                 }
             }
         }
+
     }
 
 
 
+
+
+    private fun navigateToHome() {
+        val action = ViewNoteFragmentDirections.actionViewNoteFragmentToDashboard()
+        findNavController().navigate(action)
+    }
+
+
+
+//
+//
 
 }

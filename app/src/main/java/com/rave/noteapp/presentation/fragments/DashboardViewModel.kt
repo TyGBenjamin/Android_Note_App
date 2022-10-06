@@ -18,4 +18,8 @@ import javax.inject.Inject
 class DashboardViewModel @Inject constructor(private val repository: Repository) :ViewModel(){
   val note = repository.getNotes()
 
+  fun deleteNote(note: Note) = viewModelScope.launch { repository.deleteNote(note) }
+
+
+
 }

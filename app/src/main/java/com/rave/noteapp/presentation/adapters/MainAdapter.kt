@@ -1,16 +1,21 @@
 package com.rave.noteapp.presentation.adapters
 
 
+import android.app.Activity
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.rave.noteapp.databinding.NotesBinding
 import com.rave.noteapp.domain.models.Note
+import kotlin.reflect.KFunction1
 
-class MainAdapter (
-    val nav: (id: Int) -> Unit
+class MainAdapter(
+    val nav: (id: Int) -> Unit,
+    val deleteNote: (note:Note) -> Unit
         ): RecyclerView.Adapter<MainAdapter.NotesViewHolder>(){
+
     private lateinit var notesList: List<Note>
 
 
@@ -18,14 +23,19 @@ class MainAdapter (
         private val binding: NotesBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun apply(notes: Note) = with(binding) {
-            tvTitle.text = notes.title
-            textView3.text = notes.body
+        fun apply(note: Note) = with(binding) {
+            tvTitle.text = note.title
+            textView3.text = note.body
 
-            root.setOnClickListener{
-                Log.d("CLICK", "Note: ${notes.id}")
-                nav(notes.id)
+            btnDelete.setOnClickListener {
+
+                deleteNote(note)
             }
+            root.setOnClickListener{
+                Log.d("CLICK", "Note: ${note.id}")
+                nav(note.id)
+            }
+
 
         }
     }
