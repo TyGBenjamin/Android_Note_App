@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.SearchView
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.rave.noteapp.R
@@ -17,6 +18,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
     private val viewModel by viewModels<HomeViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,11 +28,11 @@ class MainActivity : AppCompatActivity() {
         const val TAG = "Logger"
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.dropdown_menu, menu)
-
-        return true
-    }
+//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+//        menuInflater.inflate(R.menu.dropdown_menu, menu)
+//
+//        return true
+//    }
 
 
 
