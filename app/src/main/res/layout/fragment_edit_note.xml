@@ -5,21 +5,23 @@
     android:layout_height="match_parent"
     tools:context="com.rave.noteapp.presentation.screens.add.AddNote">
 
+
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp">
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Title" />
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ti_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Edit Note Below" />
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:hint="Edit Title"
+            android:paddingTop="20dp"
+            android:fontFamily="sans-serif-thin"/>
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -27,22 +29,25 @@
             android:layout_weight="1">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ti_body"
                 android:layout_width="match_parent"
-                android:layout_height="26dp" />
+                android:layout_height="100dp"
+                android:background="@android:color/transparent"
+                android:hint="write note"
+                android:gravity="center"
+                />
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Note" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
+            android:id="@+id/btn_save"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:text="save note"/>
+            android:text="save note" />
+
+
 
     </com.google.android.material.textfield.TextInputLayout>
 </FrameLayout>

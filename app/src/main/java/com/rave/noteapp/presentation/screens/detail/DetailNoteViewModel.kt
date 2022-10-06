@@ -31,4 +31,6 @@ class DetailNoteViewModel @Inject constructor(
             _note.value = repository.getNoteById(id)
         }
     }
+
+
 }

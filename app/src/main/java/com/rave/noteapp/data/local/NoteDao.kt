@@ -5,14 +5,15 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
+import androidx.room.Update
 import com.rave.noteapp.domain.models.Note
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface NoteDao {
     @Query
-        ("SELECT * FROM notes")
-    fun getNotes(): Flow<List<Note>>
+        ("SELECT * FROM notes WHERE title LIKE '%' || :search || '%'")
+    fun getNotes(search: String?): Flow<List<Note>>
 
     @Query
         ("SELECT * FROM notes WHERE id in (:id)")
@@ -20,6 +21,9 @@ interface NoteDao {
 
     @Insert(onConflict = REPLACE)
      fun insertNote (note:Note)
+
+     @Update
+     fun update(note: Note)
 
     @Delete
     fun deleteNote(note:Note)

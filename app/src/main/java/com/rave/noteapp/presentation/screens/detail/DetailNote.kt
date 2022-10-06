@@ -2,17 +2,23 @@ package com.rave.noteapp.presentation.screens.detail
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.View
-import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.rave.noteapp.R
+import com.rave.noteapp.adapters.NoteAdapter
+import com.rave.noteapp.data.local.NoteDao
 import com.rave.noteapp.databinding.FragmentDetailNoteBinding
 import com.rave.noteapp.databinding.FragmentHomeBinding
+import com.rave.noteapp.presentation.screens.home.HomeFragmentDirections
 import com.rave.noteapp.presentation.screens.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -24,6 +30,7 @@ class DetailNote : Fragment() {
     private val binding: FragmentDetailNoteBinding get() = _binding!!
     private val viewModel by viewModels<DetailNoteViewModel>()
     private val safeArgs: DetailNoteArgs by navArgs()
+    lateinit var searchView: SearchView
 //    private lateinit var viewModel: DetailNoteViewModel
 
     override fun onCreateView(
@@ -35,8 +42,13 @@ class DetailNote : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+       setupMenu()
         initViews()
+//        initListeners()
+
+//        viewModel.insertNote()
     }
+
 
     private fun initViews() = with(binding) {
         lifecycleScope.launch {
@@ -48,6 +60,42 @@ class DetailNote : Fragment() {
 
             }
         }
+    }
+
+    private fun setupMenu(){
+        val menuHost: MenuHost = requireActivity()
+
+
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                // Add menu items here
+                menuInflater.inflate(R.menu.edit_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+
+                // Handle the menu selection
+                when (menuItem.itemId) {
+                    R.id.btn_edit -> {
+                        Log.d("EditButton", "onMenuItemSelected: Edit Button Clicked")
+                        println("Edit clicked")
+                        navigateToEdit()
+                        viewModel.setNote()
+                        return true
+                    }
+
+
+                }
+
+
+                return true
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
+
+    private fun navigateToEdit() {
+        val action = DetailNoteDirections.actionDetailNoteToEditNote()
+        findNavController().navigate(action)
     }
 
     companion object {

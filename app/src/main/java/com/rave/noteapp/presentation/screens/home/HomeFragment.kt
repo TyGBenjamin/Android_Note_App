@@ -1,12 +1,14 @@
 package com.rave.noteapp.presentation.screens.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.rave.noteapp.adapters.NoteAdapter
@@ -25,7 +27,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding: FragmentHomeBinding get() = _binding!!
     private val viewModel by viewModels<HomeViewModel>()
-    private val noteAdapter by lazy { NoteAdapter(::navigateToDetails, ::deleteNote) }
+//    private val noteAdapter by lazy { NoteAdapter(::navigateToDetails, ::deleteNote) }
     lateinit var searchView: SearchView
 
     override fun onCreateView(
@@ -37,9 +39,20 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val menuHost: MenuHost = requireActivity()
+        setUpMenu()
 
-        menuHost.addMenuProvider(object : MenuProvider {
+        initViews()
+        initListeners()
+
+//        viewModel.insertNote()
+    }
+
+    private fun setUpMenu() {
+        (requireActivity() as MenuHost).addMenuProvider(object : MenuProvider {
+            override fun onPrepareMenu(menu: Menu) {
+                // Handle for example visibility of menu items
+            }
+
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 // Add menu items here
                 menuInflater.inflate(R.menu.dropdown_menu, menu)
@@ -53,8 +66,8 @@ class HomeFragment : Fragment() {
                     R.id.btn_search -> {
                         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                             override fun onQueryTextSubmit(query: String?): Boolean {
-                                println(query)
-                                // viewmodel.search(text)
+                                Log.d("Logger", "onQueryTextSubmit: $query")
+                                if (query != null) viewModel.updateSearchText(query)
                                 return true
                             }
 
@@ -66,11 +79,7 @@ class HomeFragment : Fragment() {
                 }
                 return true
             }
-        })
-        initViews()
-        initListeners()
-
-//        viewModel.insertNote()
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     private fun initListeners() = with(binding) {
@@ -83,7 +92,7 @@ class HomeFragment : Fragment() {
     private fun initViews() = with(binding) {
         lifecycleScope.launch(Dispatchers.Main) {
             viewModel.noteList.collectLatest { noteList ->
-                rvView.adapter = noteAdapter.apply {
+                rvView.adapter = NoteAdapter(::navigateToDetails, ::deleteNote).apply {
                     addItems(noteList)
                 }
             }
@@ -102,6 +111,16 @@ class HomeFragment : Fragment() {
 
     private fun deleteNote(note: Note) {
         viewModel.deleteNote(note)
+        val test = object :Test {
+            override fun doSomeShit() {
+
+            }
+        }
+        anotherTest(test)
+    }
+
+    fun anotherTest(something: Test) {
+        something.doSomeShit()
     }
 
 //    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -112,6 +131,11 @@ class HomeFragment : Fragment() {
 //        return super.onOptionsItemSelected(item)
 //    }
 }
+
+interface Test {
+    fun doSomeShit()
+}
+
 
 
 
