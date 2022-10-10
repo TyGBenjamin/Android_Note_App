@@ -5,15 +5,15 @@ import androidx.lifecycle.viewModelScope
 import com.rave.noteapp.databinding.FragmentAddNoteBinding
 import com.rave.noteapp.domain.models.Note
 import com.rave.noteapp.domain.repository.Repository
+import com.rave.noteapp.domain.usecases.InsertNoteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AddNoteViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
-    fun addNote(title: String, body: String) {
+class AddNoteViewModel @Inject constructor(private val insertNoteUseCase: InsertNoteUseCase, ) : ViewModel() {
+    fun addNote(title: String, body: String) =
         viewModelScope.launch {
-            repository.insertNote(Note(title = title, body = body))
+            insertNoteUseCase(title,body)
         }
     }
-}

@@ -6,6 +6,7 @@ import com.rave.noteapp.data.local.NoteDao
 import com.rave.noteapp.data.local.NoteDatabase
 import com.rave.noteapp.data.repository.RepositoryImpl
 import com.rave.noteapp.domain.repository.Repository
+import com.rave.noteapp.domain.usecases.InsertNoteUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,4 +24,7 @@ object AppModule {
 
     @Provides
     fun providesRepo(noteDao:NoteDao) : Repository = RepositoryImpl(noteDao)
+
+    @Provides
+    fun providesInsertNoteUseCase(repository: Repository) = InsertNoteUseCase(repository)
 }

@@ -79,7 +79,7 @@ class DetailNote : Fragment() {
                     R.id.btn_edit -> {
                         Log.d("EditButton", "onMenuItemSelected: Edit Button Clicked")
                         println("Edit clicked")
-                        navigateToEdit()
+                        navigateToEdit(id)
                         viewModel.setNote()
                         return true
                     }
@@ -93,8 +93,8 @@ class DetailNote : Fragment() {
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
-    private fun navigateToEdit() {
-        val action = DetailNoteDirections.actionDetailNoteToEditNote()
+    private fun navigateToEdit(Id:Int) {
+        val action = DetailNoteDirections.actionDetailNoteToEditNote(Id)
         findNavController().navigate(action)
     }
 

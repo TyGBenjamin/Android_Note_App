@@ -111,30 +111,14 @@ class HomeFragment : Fragment() {
 
     private fun deleteNote(note: Note) {
         viewModel.deleteNote(note)
-        val test = object :Test {
-            override fun doSomeShit() {
-
-            }
-        }
-        anotherTest(test)
     }
 
-    fun anotherTest(something: Test) {
-        something.doSomeShit()
-    }
 
-//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//        inflater.inflate(R.menu.dropdown_menu, menu)
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return super.onOptionsItemSelected(item)
-//    }
+
+
 }
 
-interface Test {
-    fun doSomeShit()
-}
+
 
 
 

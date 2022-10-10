@@ -28,4 +28,8 @@ interface NoteDao {
     @Delete
     fun deleteNote(note:Note)
 
+//
+//    SELECT * FROM Customers
+//    ORDER BY Country DESC;
+
 }

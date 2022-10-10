@@ -13,7 +13,7 @@
 
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ti_title"
+            android:id="@+id/edit_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
@@ -29,7 +29,7 @@
             android:layout_weight="1">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ti_body"
+                android:id="@+id/edit_body"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:background="@android:color/transparent"
